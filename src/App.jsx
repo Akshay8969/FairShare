@@ -33,7 +33,7 @@ export default function App() {
     return state.expenses.filter((e) => {
       if (q && !e.description.toLowerCase().includes(q)) return false;
       if (category !== "All" && e.category !== category) return false;
-      if (paidBy !== "" && e.paidBy !== paidBy) return false;
+      if (paidBy !== "" && e.paidBy !== Number(paidBy)) return false;
       return true;
     });
   }, [state.expenses, query, category, paidBy]);
