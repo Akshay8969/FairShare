@@ -7,10 +7,16 @@ export function formatMoney(amount) {
 
 export function splitEqual(amount, ids) {
   const n = ids.length || 1;
-  const share = Number((amount / n).toFixed(2));
+  const baseShare = Number((amount / n).toFixed(2));
   const shares = {};
   for (const id of ids) {
-    shares[id] = share;
+    shares[id] = baseShare;
+  }
+  // Fix rounding: add any leftover cents to the last person's share
+  const total = baseShare * n;
+  const diff = Number((amount - total).toFixed(2));
+  if (diff !== 0 && ids.length > 0) {
+    shares[ids[ids.length - 1]] = Number((baseShare + diff).toFixed(2));
   }
   return shares;
 }
