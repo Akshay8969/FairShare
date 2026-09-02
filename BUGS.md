@@ -28,7 +28,7 @@ Keep this file in the repo and **commit it** with your fixes.
 
 ## Bug 3
 
-**How to reproduce:** Open the app. Look at the Balances panel. Alice paid for most things and should be shown as "is owed" money, but she is labeled "owes". The people who owe money are labeled "is owed".
+**How to reproduce:** Open the app. Look at the Balances panel. Aisha and Ben paid for significant expenses and should have positive balances shown as "is owed", but their rows are labeled "owes". Members with negative balances who owe money are labeled "is owed".
 
 **What is wrong:** The label logic in `BalancesPanel.jsx` was backwards. A positive balance means the person paid more than their share — they are owed money. A negative balance means they consumed more than they paid — they owe money. The original code had `bal > 0` labeled as `"owes"` and `bal < 0` labeled as `"is owed"`, which is the opposite of the sign convention used throughout the app.
 
@@ -68,7 +68,7 @@ Keep this file in the repo and **commit it** with your fixes.
 
 ## Bug 7
 
-**How to reproduce:** Create a scenario where one debtor owes exactly the same amount as one creditor is owed (e.g. Alice owes $15 and Bob is owed $15). Open the Settle Up panel — that transfer is completely missing from the list.
+**How to reproduce:** Create a scenario where one debtor owes exactly the same amount as one creditor is owed (e.g. Aisha owes $15 and Ben is owed $15). Open the Settle Up panel — that transfer is completely missing from the list.
 
 **What is wrong:** In `suggestSettlements`, the algorithm has three branches: `d.amount > c.amount`, `d.amount < c.amount`, and `else` (equal). The `else` branch was only incrementing both pointers but never pushing the transfer. So when a debtor and creditor have equal amounts, the settlement is silently dropped and those people are left with non-zero net balances.
 
